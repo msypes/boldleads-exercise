@@ -8,13 +8,15 @@
  * Handles submissions of client-form
  */
 
-// Is this an AJAX submittal or regular form submit?
-// That will determine how we respond, especially to failures.
-
-
-// Sanity check - If we don't have at least phone or email, balk.
-if((empty($_POST['email']) && empty($_POST['phone'])) || empty($_POST['submit'])){
-	// balk
+// Sanity check - If we don't have at least phone or email, or it wasn't a real submit, balk.
+if((empty($_POST['email']) && empty($_POST['phone'])) || (empty($_POST['submit']) && !isAjax($_POST))){
+	if (!isAjax($_POST)){
+		header('Location: ' . '../client-form.html', true, 400);
+	}
+	else{
+		echo 'false';
+		die();
+	}
 }
 else{
 	// We should sanitize data, of which there'll be a little in the entity.
@@ -35,6 +37,18 @@ else{
 
 	$db_connection->storeLead($lead);
 
-	// Send to thank you page.
-	header('Location: ' . '../thankyou.html', true, 301);
+	// Is this an AJAX submittal or regular form submit?
+	// That will determine how we respond, especially to failures.
+	if(isAjax($_POST)){
+		echo 'success';
+		die();
+	}
+	else{
+		// Send to thank you page.
+		header('Location: ' . '../thankyou.html', true, 301);
+	}
+}
+
+function isAjax($posted_data){
+	return (isset($posted_data['ajax']) && $posted_data['ajax'] == 'true');
 }
