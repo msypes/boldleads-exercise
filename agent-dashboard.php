@@ -12,6 +12,10 @@ require_once 'src/DBService.php';
 $db = new DBService();
 
 $leads = $db->retrieveAllLeads();
+
+uasort($leads, function($a, $b){
+	return $a->getLastName() <=> $b->getLastName();
+});
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +33,7 @@ $leads = $db->retrieveAllLeads();
 			<span class="name"><a href="lead-detail.php?id=<?php echo $lead->getId(); ?>"><?php echo $lead->getFirstName(). ' ' . $lead->getLastName(); ?></a></span>
 			<span class="email"><?php echo $lead->getEmail(); ?></span>
 			<span class="date-created"><?php echo $lead->getDateCreated(); ?></span>
-			<a href="client-detail.php?id=<?php echo $lead->getId(); ?>" class="buttonesque">Details ...</a>
+			<a href="lead-detail.php?id=<?php echo $lead->getId(); ?>" class="buttonesque">Details ...</a>
 		</li>
 		<?php endforeach; ?>
 	</ul>
