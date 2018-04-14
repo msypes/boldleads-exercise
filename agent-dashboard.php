@@ -7,6 +7,11 @@
  * @abstract
  * Displays a list of clients
  */
+
+require_once 'src/DBService.php';
+$db = new DBService();
+
+$leads = $db->retrieveAllLeads();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +26,7 @@
 	<ul id="lead-list">
 		<?php foreach ($leads as $lead): /** @var Lead $lead */ ?>
 		<li class="lead">
-			<span class="name"><a href="client-detail.php?id=<?php echo $lead->getId(); ?>"><?php echo $lead->getFirstName(). ' ' . $lead->getLastName(); ?></a></span>
+			<span class="name"><a href="lead-detail.php?id=<?php echo $lead->getId(); ?>"><?php echo $lead->getFirstName(). ' ' . $lead->getLastName(); ?></a></span>
 			<span class="email"><?php echo $lead->getEmail(); ?></span>
 			<span class="date-created"><?php echo $lead->getDateCreated(); ?></span>
 			<a href="client-detail.php?id=<?php echo $lead->getId(); ?>" class="buttonesque">Details ...</a>

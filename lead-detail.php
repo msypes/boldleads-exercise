@@ -8,7 +8,11 @@
  * Displays ful details of an individual lead
  */
 
+require_once 'src/DBService.php';
+$db = new DBService();
+
 /** @var Lead $lead */
+$lead = $db->retrieveLeadById($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

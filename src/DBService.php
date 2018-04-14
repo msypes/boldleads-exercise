@@ -17,6 +17,8 @@ define( 'DB_NAME' , 'boldleads');
 define( 'DB_USERNAME' , 'boldleads');
 define( 'DB_PASSWORD' , 'boldleads');
 
+require_once 'Lead.php';
+
 class DBService {
 
 	/** @var \PDO */
@@ -124,7 +126,13 @@ class DBService {
 
 		$query = $this->db->query($sql);
 
-		return $query? $query->fetchAll(PDO::FETCH_CLASS, Lead::class) : $query;
+		if(!$query){
+			return false;
+		}
+		else{
+			$result = $query->fetchAll(PDO::FETCH_CLASS, Lead::class);
+			return  array_shift($result);
+		}
 
 	}
 
@@ -138,7 +146,13 @@ class DBService {
 
 		$query = $this->db->query($sql);
 
-		return $query? $query->fetchAll(PDO::FETCH_CLASS, Lead::class) : $query;
+		if(!$query){
+			return false;
+		}
+		else{
+			$result = $query->fetchAll(PDO::FETCH_CLASS, Lead::class);
+			return  array_shift($result);
+		}
 
 	}
 
