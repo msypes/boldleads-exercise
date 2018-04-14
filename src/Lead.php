@@ -206,6 +206,7 @@ class Lead {
 		$this->date_created = $date_created;
 	}
 
-
-
+	public function convertToArray(){
+		return get_object_vars($this);
+	}
 }
