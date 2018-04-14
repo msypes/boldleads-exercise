@@ -23,9 +23,11 @@ else{
 	$lead = new Lead();
 
 	foreach($_POST as $key=>$value){
-		$setter_fxn = 'set' . ucwords($key, '_');
+		$setter_fxn = 'set' . str_replace('_','' , ucwords( $key, '_' ));
 
-		$lead->$setter_fxn = $value;
+		if (method_exists($lead, $setter_fxn)) {
+			$lead->$setter_fxn( $value );
+		}
 	}
 
 	require_once 'DBService.php';
@@ -34,5 +36,5 @@ else{
 	$db_connection->storeLead($lead);
 
 	// Send to thank you page.
-	header('Location: ' . '/thankyou.html', true, 301);
+	header('Location: ' . '../thankyou.html', true, 301);
 }

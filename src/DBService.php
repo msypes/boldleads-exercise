@@ -46,16 +46,30 @@ class DBService {
 	 * @param \Lead $lead
 	 */
 	public function insertNewLead(Lead $lead){
+		$allowed_params = [':first_name', ':last_name', ':email', ':phone',
+			':street_address', ':street_address2', ':city_address',
+			':state_address', ':zip_address', ':home_sqft', ':date_created'];
+
 		// Basic SQL
 		$sql = 'INSERT INTO lead
 				(first_name,last_name,email,phone,street_address,street_address2, city_address, state_address, zip_address, home_sqft, date_created) 
-				VALUES(:first_name,:last_name,:email,:phone,:street_address, :street_address2, :city_address, :state_address, :zip_address, :home_sqft, :date_created)';
+				VALUES('.implode(', ', $allowed_params).')';
 
 		$query = $this->db->prepare($sql);
 
 		$lead_array = $this->convertLeadIntoInsertableArray( $lead );
 
-		$query->execute($lead_array);
+		// Remove disallowed params
+		$lead_array = array_filter($lead_array, function($key) use ($allowed_params) {
+			return in_array($key, $allowed_params);
+		}, ARRAY_FILTER_USE_KEY);
+
+		// Date
+		if(empty($lead_array[':date_created'])){
+			$lead_array[':date_created'] = date('Y-m-d');
+ 		}
+
+		return $query->execute( $lead_array );
 
 	}
 
@@ -63,23 +77,30 @@ class DBService {
 	 * @param \Lead $lead
 	 */
 	public function updateLeadBasedOnEmail(Lead $lead){
-		$sql = 'UPDATE lead SET first_name = :first_name,
-								last_name = :last_name,
-								phone = :phone,
-								street_address= :street_address, 
-								street_address2 = :street_address2, 
-								city_address = :city_address, 
-								state_address = :state_address, 
-								zip_address = :zip_address, 
-								home_sqft = :home_sqft
-				WHERE email = :email';
+		$params = ['first_name', 'last_name', 'phone',
+			'street_address', 'street_address2', 'city_address',
+			'state_address', 'zip_address', 'home_sqft'];
+
+		$set_stmts = [];
+		foreach($params as $param){
+			$set_stmts[] = $param . ' = :' . $param;
+		}
+
+		$sql = 'UPDATE lead SET ' . implode(', ', $set_stmts) . ' WHERE email = "'. $lead->getEmail().'"';
 
 
 		$query = $this->db->prepare($sql);
 
 		$lead_array = $this->convertLeadIntoInsertableArray( $lead );
 
-		$query->execute($lead_array);
+		// Remove disallowed params
+		$lead_array = array_filter($lead_array, function($key) use ($params) {
+			return in_array(str_replace(':', '', $key), $params);
+		}, ARRAY_FILTER_USE_KEY);
+
+		$success = $query->execute( $lead_array );
+
+		return $success;
 	}
 
 	/**
@@ -103,7 +124,7 @@ class DBService {
 
 		$query = $this->db->query($sql);
 
-		return $query->fetchAll(PDO::FETCH_CLASS, Lead::class);
+		return $query? $query->fetchAll(PDO::FETCH_CLASS, Lead::class) : $query;
 
 	}
 
@@ -113,11 +134,11 @@ class DBService {
 	 * @return \Lead[] array
 	 */
 	public function retrieveLeadByEmail(string $email){
-		$sql = "SELECT * FROM lead WHERE email=`$email`";
+		$sql = "SELECT * FROM lead WHERE email='$email'";
 
 		$query = $this->db->query($sql);
 
-		return $query->fetchAll(PDO::FETCH_CLASS, Lead::class);
+		return $query? $query->fetchAll(PDO::FETCH_CLASS, Lead::class) : $query;
 
 	}
 
@@ -130,14 +151,11 @@ class DBService {
 	private function convertLeadIntoInsertableArray( Lead $lead ) {
 		$lead_array = $lead->convertToArray();
 
-		$lead_array = array_flip( $lead_array );
+		$modified_array =[];
+		foreach($lead_array as $key => $value){
+			$modified_array[':'.$key] = $value;
+		}
 
-		array_walk( $lead_array, function ( $value ) {
-			return ':' . $value;
-		} );
-
-		$lead_array = array_flip( $lead_array );
-
-		return $lead_array;
+		return $modified_array;
 }
 }
