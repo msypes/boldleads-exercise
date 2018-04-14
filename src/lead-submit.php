@@ -18,6 +18,8 @@ if((empty($_POST['email']) && empty($_POST['phone'])) || empty($_POST['submit'])
 }
 else{
 	// We should sanitize data, of which there'll be a little in the entity.
+	require_once 'Lead.php';
+
 	$lead = new Lead();
 
 	foreach($_POST as $key=>$value){
@@ -26,6 +28,7 @@ else{
 		$lead->$setter_fxn = $value;
 	}
 
+	require_once 'DBService.php';
 	$db_connection = new DBService();
 
 	$db_connection->storeLead($lead);
