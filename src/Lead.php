@@ -8,6 +8,9 @@
  */
 
 class Lead {
+	/** @var int $id */
+	private $id;
+
 	/** @var string $first_name */
 	private $first_name;
 
@@ -37,6 +40,16 @@ class Lead {
 
 	/** @var int $home_sqft */
 	private $home_sqft;
+
+	/** @var string */
+	private $date_created;
+
+	/**
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
 	/**
 	 * @return string
@@ -164,6 +177,7 @@ class Lead {
 		$this->zip_address = $zip_address;
 	}
 
+
 	/**
 	 * @return int
 	 */
@@ -177,6 +191,21 @@ class Lead {
 	public function setHomeSqft( $home_sqft ) {
 		$this->home_sqft = $home_sqft;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getDateCreated() {
+		return $this->date_created;
+	}
+
+	/**
+	 * @param string $date_created
+	 */
+	public function setDateCreated( $date_created ) {
+		$this->date_created = $date_created;
+	}
+
 
 
 }
