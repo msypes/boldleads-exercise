@@ -19,6 +19,8 @@ $lead = $db->retrieveLeadById($_GET['id']);
 <head>
 	<meta charset="UTF-8">
 	<title>Lead Detail</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
 </head>
 <body>
 	<h1>Lead Detail</h1>

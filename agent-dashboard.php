@@ -22,6 +22,8 @@ uasort($leads, function($a, $b){
 <head>
 	<meta charset="UTF-8">
 	<title>Agent Dashboard</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
 </head>
 <body>
 	<h1>Agent Dashboard</h1>
