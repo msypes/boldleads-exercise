@@ -24,26 +24,31 @@ $lead = $db->retrieveLeadById($_GET['id']);
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<h1>Lead Detail</h1>
+<header>
+    <h1>Lead Detail</h1>
+</header>
+<main class="main-content-wrapper">
 	<p>Contact this individual as a lead</p>
 
 	<div class="lead">
-		<div class="lead">
-            <div id="name"><span class="label">Name</span> <?php echo $lead->getFirstName(). ' ' . $lead->getLastName(); ?></div>
-			<div id="email"><span class="label">Email</span> <?php echo $lead->getEmail(); ?></div>
-            <div id="phone"><span class="label">Phone</span> <?php echo $lead->getPhone(); ?></div>
-            <div id="address">
-                <span class="label">Address</span>
-                <span id="street"><?php echo $lead->getStreetAddress() . ', <br />' . $lead->getStreetAddress2(); ?></span><br />
-                <span id="city"><?php echo $lead->getCityAddress(); ?></span>,
-                <span id="state"><?php echo $lead->getStateAddress(); ?></span>
-                <span id="zip"><?php echo $lead->getZipAddress(); ?></span>
-            </div>
-            <div id="sqft"><span class="label">Home Area</span> <?php echo $lead->getHomeSqft(); ?> ft<sup>2</sup></div>
-			<div id="date-created"><span class="label">Date Entered</span> <?php echo $lead->getDateCreated(); ?></div>
-		</div>
+        <div id="name"><span class="label">Name:</span> <?php echo $lead->getFirstName(). ' ' . $lead->getLastName(); ?></div>
+        <div id="email"><span class="label">Email:</span> <?php echo $lead->getEmail(); ?></div>
+        <div id="phone"><span class="label">Phone:</span> <?php echo $lead->getPhone(); ?></div>
+        <div id="address">
+            <span class="label">Address:</span>
+            <span style="display: inline-block"><span id="street"><?php echo $lead->getStreetAddress() . ', <br />' . $lead->getStreetAddress2(); ?></span><br />
+            <span id="city"><?php echo $lead->getCityAddress(); ?></span>,
+            <span id="state"><?php echo $lead->getStateAddress(); ?></span>
+            <span id="zip"><?php echo $lead->getZipAddress(); ?></span></span>
+        </div>
+        <div id="sqft"><span class="label">Home Area:</span> <?php echo $lead->getHomeSqft(); ?> ft<sup>2</sup></div>
+        <div id="date-created"><span class="label">Date Entered:</span> <?php echo $lead->getDateCreated(); ?></div>
 	</div>
 
-    <a href="agent-dashboard.php" class="buttonesque">Return to Dashboard</a>
+    <div style="float: right;"><a href="agent-dashboard.php" class="buttonesque">Return to Dashboard</a></div>
+</main>
+<footer>
+    <p>This exercise brought to you by Bold Leads and Michael A. Sypes</p>
+</footer>
 </body>
 </html>
