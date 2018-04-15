@@ -40,6 +40,13 @@ main{
   grid-area: main;
 }
 
+footer{
+  grid-area: footer;
+  background-color: #3B6B16;
+  color: #FFFFFF;
+  text-align: center;
+}
+
 .buttonesque{
   background-color: #2A5A05;
   color: #CFC39D;
@@ -113,4 +120,31 @@ input, select{
 }
 input[type="submit"]{
 
+}
+
+/* Thank you page */
+#thankyou{
+  text-align: center;
+}
+#thankyou > img{
+  max-width: 50%;
+  border-radius: 33%;
+  margin: 1em auto;
+}
+@media (min-width: 400px){
+  #thankyou img{
+    animation: rotate 2s 1s ease-out forwards;
+  }
+}
+@keyframes rotate{
+  0%{
+    transform: rotate(-90deg);
+    height: 0;
+    opacity: 0;
+  }
+  100%{
+    transform: rotate(0deg);
+    opacity: 1;
+    box-shadow: #2A5A05 5px 5px 10px;
+  }
 }
