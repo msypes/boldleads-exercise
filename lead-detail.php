@@ -21,6 +21,7 @@ $lead = $db->retrieveLeadById($_GET['id']);
 	<title>Lead Detail</title>
 
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 	<h1>Lead Detail</h1>

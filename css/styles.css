@@ -5,6 +5,8 @@ body{
   grid-template-areas: "header     header   header"
                        "left-gutter main right-gutter"
                        "footer     footer   footer";
+
+  font-family: Arial, sans-serif;
 }
 
 
@@ -32,4 +34,39 @@ header h1 {
 
 main{
   grid-area: main;
+}
+
+#access-buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#access-buttons > div{
+  border: #2A5A05 1px solid;
+  border-radius: 10px;
+  box-shadow: #2A5A05 5px 5px 10px;
+  margin: 1em auto;
+  padding: 1em;
+  text-align: center;
+}
+@media (min-width: 400px){
+  #access-buttons > div {
+    width: 40%;
+  }
+}
+
+.buttonesque{
+  background-color: #2A5A05;
+  color: #CFC39D;
+  border-radius: 5px;
+  padding: 7px 15px;
+  display: inline-block;
+  margin: .5em;
+  text-align: center;
+  text-decoration: none;
+}
+.buttonesque:hover{
+  background-color: #3B6B16;
+  color: #FFFFFF;
 }
