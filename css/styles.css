@@ -1,3 +1,7 @@
+/**************** Custom styles ********/
+
+/* Generic stuff */
+
 body{
   display: grid;
   grid-template-columns: 1fr 10fr 1fr;
@@ -36,6 +40,24 @@ main{
   grid-area: main;
 }
 
+.buttonesque{
+  background-color: #2A5A05;
+  color: #CFC39D;
+  border-radius: 5px;
+  padding: 7px 15px;
+  display: inline-block;
+  margin: .5em;
+  text-align: center;
+  text-decoration: none;
+  border:none;
+}
+.buttonesque:hover{
+  background-color: #3B6B16;
+  color: #FFFFFF;
+}
+
+/* Index Page */
+
 #access-buttons{
   display: flex;
   flex-wrap: wrap;
@@ -56,17 +78,39 @@ main{
   }
 }
 
-.buttonesque{
-  background-color: #2A5A05;
-  color: #CFC39D;
-  border-radius: 5px;
-  padding: 7px 15px;
-  display: inline-block;
-  margin: .5em;
-  text-align: center;
-  text-decoration: none;
+/* Client Form */
+@media (min-width: 400px){
+  form{
+    max-width: 66%;
+    margin: 1em auto;
+    border: #2A5A05 1px solid;
+    border-radius: 10px;
+    box-shadow: #2A5A05 5px 5px 10px;
+  }
 }
-.buttonesque:hover{
-  background-color: #3B6B16;
-  color: #FFFFFF;
+
+.input_wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1em;
+}
+
+fieldset{
+  border: #2A5A05 1px solid;
+  border-radius: 10px;
+}
+
+label, legend{
+  color: #2A5A05;
+  text-align: right;
+  margin: .5em 1em .5em 0;
+}
+
+input, select{
+  border: #2A5A05 1px solid;
+  border-radius: 10px;
+  width: 100%;
+}
+input[type="submit"]{
+
 }
