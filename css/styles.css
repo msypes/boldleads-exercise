@@ -133,7 +133,7 @@ input[type="submit"]{
 }
 @media (min-width: 400px){
   #thankyou img{
-    animation: rotate 2s 1s ease-out forwards;
+    animation: rotate 2s 0s ease-out forwards;
   }
 }
 @keyframes rotate{

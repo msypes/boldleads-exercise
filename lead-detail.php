@@ -36,7 +36,8 @@ $lead = $db->retrieveLeadById($_GET['id']);
         <div id="phone"><span class="label">Phone:</span> <?php echo $lead->getPhone(); ?></div>
         <div id="address">
             <span class="label">Address:</span>
-            <span style="display: inline-block"><span id="street"><?php echo $lead->getStreetAddress() . ', <br />' . $lead->getStreetAddress2(); ?></span><br />
+            <span style="display: inline-block"><span id="street"><?php echo $lead->getStreetAddress(); ?>
+                    <?php echo (!empty($lead->getStreetAddress2()))? ', <br />' . $lead->getStreetAddress2() : ''; ?></span><br />
             <span id="city"><?php echo $lead->getCityAddress(); ?></span>,
             <span id="state"><?php echo $lead->getStateAddress(); ?></span>
             <span id="zip"><?php echo $lead->getZipAddress(); ?></span></span>
