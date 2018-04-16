@@ -22,6 +22,8 @@ header {
   background-position: 0 20%;
 }
 header h1 {
+  background-image: url('../img/shrubbery.png');
+  background-size: cover;
   background-color: #2A5A05;
   color: #FFFFFF;
   display: inline-block;
